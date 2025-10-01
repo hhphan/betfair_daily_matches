@@ -53,13 +53,15 @@ def interactive_menu():
         print("1. All matches today (all sports)")
         print("2. Football matches today")
         print("3. Tennis matches today")
-        print("4. Custom date range")
-        print("5. View competitions today")
-        print("6. Search matches by team/player name")
-        print("7. Exit")
+        print("4. Cricket matches today")
+        print("5. Rugby matches today")
+        print("6. Custom date range")
+        print("7. View competitions today")
+        print("8. Search matches by team/player name")
+        print("9. Exit")
 
-        choice = input("\nSelect option (1-7): ").strip()
-        if choice == "7":
+        choice = input("\nSelect option (1-9): ").strip()
+        if choice == "9":
             print("Goodbye!")
             break
 
@@ -85,24 +87,32 @@ def handle_menu_choice(client, choice):
         display_matches(matches, "Tennis Matches Today")
 
     elif choice == "4":
+        matches = list_matches_today(client, "cricket", max_results=50)
+        display_matches(matches, "Cricket Matches Today")
+
+    elif choice == "5":
+        matches = list_matches_today(client, "rugby", max_results=50)
+        display_matches(matches, "Rugby Matches Today")
+
+    elif choice == "6":
         sport = input("Enter sport (football/tennis/cricket/rugby): ").strip().lower()
         days = int(input("Days ahead (0=today, 1=tomorrow): ").strip())
         matches = get_matches_by_date_range(client, sport, days, max_results=50)
         display_matches(matches, f"{sport.title()} Matches - {get_date_display(days)}")
 
-    elif choice == "5":
+    elif choice == "7":
         sport = input("Enter sport for competitions: ").strip().lower()
         comps = get_competitions_today(client, sport)
         display_competitions(comps, sport)
 
-    elif choice == "6":
+    elif choice == "8":
         team = input("Enter team/player name: ").strip()
         sport = input("Enter sport or press Enter for all: ").strip().lower() or None
         matches = search_matches_by_team_name(client, team, sport)
         display_matches(matches, f"Matches for '{team}'")
 
     else:
-        print("Invalid choice. Please select 1-7.")
+        print("Invalid choice. Please select 1-9.")
 
 
 if __name__ == "__main__":
