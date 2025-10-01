@@ -1,6 +1,24 @@
 # Betfair Daily Matches – Quick Start Guide
 
-Follow these steps to set up and run the Betfair Daily Matches application via `main.py`.
+## Project Overview
+
+**Betfair Daily Matches** is a modular Python application that connects to the Betfair Exchange API to:
+
+- Fetch and display **today’s** sports markets (Football, Tennis, Cricket, Rugby)
+- Query markets for a **custom date range**
+- Filter by **market type** (e.g., Match Odds, Over/Under)
+- Restrict to **specific countries**
+- Show **live (in-play)** markets
+- Search for matches by **team/player name**
+- List today’s **competitions** per sport
+
+It features:
+- An **interactive CLI** (`main.py`) with menu-driven options
+- A **clean package** (`betfair_app/`) encapsulating config, client, utilities, query logic, and sport modules
+- **Pytest**-based test suite under `tests/`
+- Easy extensibility: add new sports or market filters by creating new modules
+
+Follow the sections below to set up, run, and extend the application.
 
 ## Project Structure
 
