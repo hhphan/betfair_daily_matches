@@ -3,12 +3,14 @@ from betfair_app.config import Config
 
 class BetfairClient:
     def __init__(self):
+        # Dynamically fetch validated env vars
+        env = Config._env_vars()
         Config.validate()
         self.client = APIClient(
-            username=Config.USERNAME,
-            password=Config.PASSWORD,
-            app_key=Config.APP_KEY,
-            certs=Config.CERTS,
+            username=env["USERNAME"],
+            password=env["PASSWORD"],
+            app_key=env["APP_KEY"],
+            certs=env["CERTS"],
         )
         self._logged_in = False
 
