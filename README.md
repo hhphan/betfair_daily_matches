@@ -27,17 +27,24 @@ betfair_daily_matches/
 ├── main.py
 ├── requirements.txt
 ├── README.md
-└── betfair_app/
+├── betfair_app/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── client.py
+│   ├── utils.py
+│   ├── query.py
+│   └── sports/
+│       ├── football.py
+│       ├── tennis.py
+│       ├── cricket.py
+│       └── rugby.py
+└── tests/
     ├── __init__.py
-    ├── config.py
-    ├── client.py
-    ├── utils.py
-    ├── query.py
-    └── sports/
-        ├── football.py
-        ├── tennis.py
-        ├── cricket.py
-        └── rugby.py
+    ├── test_config.py
+    ├── test_query.py
+    ├── test_sports_football.py
+    ├── test_sports_tennis.py
+    └── test_utils.py
 ```
 
 ## 1. Create a Python Virtual Environment
@@ -121,10 +128,32 @@ deactivate
 
 ## 7. Testing with pytest
 
-A test suite using **pytest** is included under `tests/`. To run the tests:
+A test suite using **pytest** is included under `tests/` — 10 tests across 5 files.
+
+### Test coverage
+
+| File | Tests | What it covers |
+|---|---|---|
+| `test_config.py` | 2 | Missing env vars raise `ValueError`; all vars present returns `True` |
+| `test_query.py` | 2 | `list_matches_today` with a dummy client; invalid sport raises `ValueError` |
+| `test_sports_football.py` | 1 | `get_football_event_type_id()` returns `"1"` |
+| `test_sports_tennis.py` | 1 | `get_tennis_event_type_id()` returns `"2"` |
+| `test_utils.py` | 4 | Date range ISO format, custom offset, valid/invalid time formatting |
+
+### Running tests
 
 ```bash
+# Run all 10 tests (quiet)
 pytest --maxfail=1 --disable-warnings -q
+
+# Verbose output
+pytest -v
+
+# Run a single test file
+pytest tests/test_utils.py -v
+
+# Run a single test by name
+pytest tests/test_config.py::test_missing_env -v
 ```
 
 Ensure all tests pass before deploying or extending the application.
